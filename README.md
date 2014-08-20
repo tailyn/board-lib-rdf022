@@ -25,3 +25,16 @@ Output:
 Hello
 World
 ```
+
+**N.B.**
+
+* `get_lcm().messages` should be an iterable object and contains only 2 items.
+
+* `get_lcm()` returns an instance of Singleton, so `lcm_1` and `lcm_2` in the following block are the same:
+
+```py
+lcm_1 = rdf022.get_lcm()
+lcm_2 = rdf022.get_lcm()
+```
+
+* The library is multiple-access safed, in case you have a multithreaded process.
