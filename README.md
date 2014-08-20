@@ -2,7 +2,7 @@
 
 ## Usage
 
-Download this repository and put directory `rdf022` along with `your_prog.py`.
+Download this repository and put `rdf022.py` along with `your_prog.py`, just like `sample.py`.
 
 ### LCM
 
