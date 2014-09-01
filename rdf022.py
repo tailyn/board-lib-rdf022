@@ -42,6 +42,7 @@ class Lcm(object):
         self._HEIGHT = 0x2
         self._HIDDEN_WIDTH_BOUNDARY = 40
         self._messages = ('', '')
+        self._BRIGHTNESS_DEPTH = 8
         try:
             import smbus
         except ImportError:
@@ -58,6 +59,14 @@ class Lcm(object):
                 for i in [str(ord(c)) for c in line \
                         + ' ' * (self._HIDDEN_WIDTH_BOUNDARY - len(line))]:
                     self.write(i)
+
+    def increase_brightness(self):
+        with self.__lock:
+            subprocess.call(['i2cset', '-y', self._BUS, self._ADDR, '0x07', '0x01'])
+
+    def decrease_brightness(self):
+        with self.__lock:
+            subprocess.call(['i2cset', '-y', self._BUS, self._ADDR, '0x07', '0x00'])
 
     def init(self):
         with self.__lock:
@@ -85,6 +94,10 @@ class Lcm(object):
         if len(msg) > self._HEIGHT:
             raise IndexError('too many messages')
         self._messages = msg
+
+    @property
+    def brightness_depth(self):
+        return self._BRIGHTNESS_DEPTH
 
 
 def get_lcm():
